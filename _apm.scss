@@ -1,0 +1,7 @@
+.headerFW{
+  & .headerFW__headbanner #logo{width: 280px; 
+    @include media-max(xs){width: 260px; } 
+    @include media-max(xxs){width: 230px; } 
+    @media (max-width: 370px) {width: 110px; } 
+  }
+}
