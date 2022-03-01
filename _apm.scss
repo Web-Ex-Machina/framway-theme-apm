@@ -5,3 +5,11 @@
     @media (max-width: 370px) {width: 110px; } 
   }
 }
+
+.heroFW.hero--apm{ font-size: 1em;
+  @extend .content--h--left,.content--v--top;
+  .heroFW__content{padding: 5% 0;}
+  .heroFW__content__wrapper{ padding: 2em 2.5em; background: rgba(body(block-background),0.8); color: contrastFW(body(font-color),rgba(body(block-background),0.8));
+    p{max-width: 50ch;}
+  } 
+}
