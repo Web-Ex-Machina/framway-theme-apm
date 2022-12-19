@@ -1,10 +1,66 @@
+$z_header: 100 !default;
 .headerFW{
-  & .headerFW__headbanner #logo{width: 280px; 
-    @include media-max(xs){width: 260px; } 
-    @include media-max(xxs){width: 230px; } 
-    @media (max-width: 370px) {width: 110px; } 
+  .headerFW__nav__wrapper,
+  .headerFW__nav{align-items: flex-end;
+    .headerFW__nav__inline, 
+    &>.mod_navigation{flex-direction: row; display: flex;}
+    .headerFW__nav__toggler{width: 40px;
+      .bar{background: $secondary;}
+    }
+  }
+
+  &.is-reduce{
+    .headerFW__postnav{height: 100%;align-items: center;}
+  } 
+
+}
+.headerFW__logo__wrapper{max-height: clamp(70px,15vh,120px);
+  @include media-max(md){max-width: 200px;}
+}
+.headerFW__logo{width: 100%;}
+
+.headerFW__postnav{
+  .cart{ 
+    position: relative; 
+    text-align: center; 
+    color: contrastFW($secondary, header(background)); 
+    opacity: 0.6; 
+    transition: opacity 0.3s; 
+    margin-right: 0.5em;
+    i[class*="fa"],svg{width: 1em; height: 1em;}
+    .nb_items{
+        font-size: 0.8em;
+        color: $primary;
+        font-weight: bold;
+        position: absolute;
+        background: white;
+        right: 0;
+        top: 0;
+        width: 1.5em;
+        height: 1.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 60px;
+        box-shadow: 0px 0px 3px 0px black;
+        transform: translate(50%,-50%);
+    }
   }
 }
+
+.headerFW__topbar{height: 0;overflow: visible;z-index: $z_header; position: fixed; right: 0; }
+.topbar{
+  & .search{ 
+    @include media-max(xs){width: auto;}
+  }
+  .headerFW:not(.active)+.headerFW__topbar>&{opacity: 0; pointer-events: none;}
+  .headerFW.is-reduce+.headerFW__topbar>&{
+    position: fixed; z-index: 1; opacity: 0; pointer-events: none; transition: all 0.6s; left: 0; bottom: 0; transform: translateY(100%);
+    &:before{left: auto; right: 0; transform: skewX(30deg) translateX(30%);}
+    &.active{opacity: 1; pointer-events: all;transform: translateY(0%);}
+  }
+}
+
 
 .heroFW.hero--apm{ font-size: 1em;
   @extend .content--h--left,.content--v--top;
@@ -28,3 +84,9 @@
 .mod_iso_productreader .iso__block:nth-of-type(4){
   background:color(greylighter);
 }
+
+.addToCart__wrapper{position: sticky; top: 80px;  z-index: 1; height: 0;
+  input{margin: 1rem 1.5rem !important; box-shadow: 0px 0px 1px 1px rgba(#000,0.15);}
+} 
+
+
