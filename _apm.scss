@@ -48,7 +48,7 @@ $z_header: 100 !default;
   }
 }
 
-.headerFW__topbar{height: 0;overflow: visible;z-index: $z_header; position: sticky; top: 0; right: 0; }
+.headerFW__topbar{height: 0;overflow: visible;z-index: $z_header+1; position: sticky; top: 0; right: 0; }
 .topbar{ float: right;
   & .search{ 
     @include media-max(xs){width: auto;}
