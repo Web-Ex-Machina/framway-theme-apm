@@ -25,6 +25,12 @@ $(function(){
 			}
 		)
 	}
+
+
+    $('body').on('click','.job_default',function(e){
+    	if (!$(e.target).hasClass('job__more'))
+			$(this).find('.job__more').trigger('click');
+	})
 });
 
 var resetCartPosition = function(){
