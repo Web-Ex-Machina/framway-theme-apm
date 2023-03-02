@@ -26,6 +26,22 @@ $(function(){
 		)
 	}
 
+	var timerSubmit;
+    $('.mod_iso_cart input[name*=quantity]').on('change',function(){
+        clearTimeout(timerSubmit);
+        var input = this;
+        timerSubmit = setTimeout(function(){
+            if (input.value != 0) 
+                input.closest('form').submit();
+            else {
+            	if(confirm('Voulez vous supprimer cet élément de votre panier ?') == true)
+                	input.closest('form').submit();
+                else
+                	input.value=1;
+            }
+        },500)
+    })
+
 
     $('body').on('click','.job_default',function(e){
     	if (!$(e.target).hasClass('job__more'))
