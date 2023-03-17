@@ -103,6 +103,17 @@ $z_header: 100 !default;
   .submit_container.d-grid{gap: 0.5rem;}
   .actions a{padding: 1rem;font-size: 1.35em;}
   .actions a.remove{color: rgba($error,0.5);}
+
+  .cart__wrapper{display: flex;flex-wrap: wrap; gap: 2em; max-width: 1600px;}
+  .cart__col{
+    flex-grow: 1; 
+    flex-shrink: 0;
+    flex-basis: 30%; 
+    max-width: 100%;
+    min-width: 450px;
+    @include media-max(sm){min-width: 300px;}
+    @include media-max(xs){min-width: 100%;}
+  }
 }
 
 .addToCart__wrapper{position: sticky; top: 80px;  z-index: 1; height: 0;
