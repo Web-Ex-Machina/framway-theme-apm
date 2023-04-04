@@ -230,7 +230,11 @@ $(function(){
     $('body').on('click','.job_default',function(e){
     	if (!$(e.target).hasClass('job__more'))
 			$(this).find('.job__more').trigger('click');
-	})
+	});
+
+	$('body').on('click', '.iso__subproducts .table-list__line .table-list__cell[data-name=picture]', function(e) {
+		$(this).closest('.table-list__line').find('.table-list__action[data-modal]').trigger('click')
+	});
 });
 
 var resetCartPosition = function(){

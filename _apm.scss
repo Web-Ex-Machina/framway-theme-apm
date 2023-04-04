@@ -83,8 +83,11 @@ $z_header: 100 !default;
   .iso__contentwrapper{
     .modalFW &{display: block !important;}
   }
-  .heroFW{min-height: 50vh !important; display: flex;
+  .heroFW{display: flex;min-height: 50vh !important;
     .modalFW & {min-height: 0 !important;}
+  }
+  .isSubproductsList{
+    .heroFW{min-height: 0 !important;}
   }
 }
 
@@ -121,6 +124,22 @@ $z_header: 100 !default;
   .w-full{z-index: 1; padding: 1rem 1.5rem; display: flex;flex-wrap: wrap;justify-content: flex-end; gap: 1rem;}
 } 
 
+
+.iso__subproducts{
+  .table-list__cell{vertical-align: middle;
+    &[data-name=picture]{width: 150px;}
+    &[data-name=name]{text-align: center; max-width: 200px; margin: auto;}
+    &[data-name=teaser]{ min-width: 200px;
+      span.teaser{@include multi-ellipsis($font-size: 1em, $line-height: 1.5, $lines-to-show: 4)}
+    }
+  }
+  .table-list__line.separator{color: rgba(contrastFW($primary,body(background)),0.5);}
+  .table-list{
+    &.mode--block{
+      .table-list__cell[data-name=picture]{margin: auto;}
+    }
+  }
+}
 
 // OFFERS
 .offer{cursor: pointer;}
