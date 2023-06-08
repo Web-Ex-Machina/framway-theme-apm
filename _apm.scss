@@ -76,10 +76,12 @@ $z_header: 100 !default;
 
 // ISOTOPE
 .mod_iso_productreader{
-  .iso__block:nth-of-type(2){background:color(altradred); color:white; 
-    .btn{@extend .btn-bg-white;}
+  *:not(.modalFW__content)>& {
+    .iso__block:nth-of-type(2){background:color(altradred); color:white; 
+      .btn{@extend .btn-bg-white;}
+    }
+    .iso__block:nth-of-type(4) {background:color(greylighter); }
   }
-  .iso__block:nth-of-type(4) {background:color(greylighter); }
   .iso__contentwrapper{
     .modalFW &{display: block !important;}
   }
