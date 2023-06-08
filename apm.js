@@ -232,7 +232,7 @@ $(function(){
 			$(this).find('.job__more').trigger('click');
 	});
 
-	$('body').on('click', '.iso__subproducts .table-list__line .table-list__cell[data-name=picture]', function(e) {
+	$('body').on('click', '.iso__subproducts .table-list__line .table-list__cell[data-name=picture],.iso__subproducts .table-list__line .table-list__cell[data-name=name],.iso__subproducts .table-list__line .table-list__cell[data-name=teaser]', function(e) {
 		$(this).closest('.table-list__line').find('.table-list__action[data-modal]').trigger('click')
 	});
 });
