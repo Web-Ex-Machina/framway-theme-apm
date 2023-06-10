@@ -82,13 +82,16 @@ $z_header: 100 !default;
     }
     .iso__block:nth-of-type(4) {background:color(greylighter); }
   }
-  .iso__contentwrapper{
-    .modalFW &{display: block !important;}
-  }
-  .heroFW{display: flex;min-height: 50vh !important;
-    .modalFW & {min-height: 0 !important;}
-  }
+  .heroFW{display: flex;min-height: 50vh !important; }
   .isSubproductsList{
+    .heroFW{min-height: 0 !important;}
+  }
+
+  .modalFW &{
+    min-width: 40vw;
+    .sliderFW__container{min-height: 400px;}
+    .sliderFW__rail {height: 100%;}
+    .iso__contentwrapper{display: block !important;}
     .heroFW{min-height: 0 !important;}
   }
 }
