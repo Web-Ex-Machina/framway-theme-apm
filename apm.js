@@ -1,17 +1,11 @@
 $(function(){
-	var header;
-	if (app.components.includes('headerFWOld'))
-      	header = $('#header').headerFWOld('get');
-  	else if (app.components.includes('headerFW'))
-		header = $('#header').headerFW('get');
-	header.$stickyEl = $('#container');
-
-
 	$(window).resize(function(){
 		resetCartPosition()
 	});
 
-	
+	$('#footer').addClass('v2');
+
+
 	if ($('.addToCart__wrapper').length) {
 		var observer = new MutationObserver(function callback(mutationList, observer) {
 				mutationList.forEach(function(mutation) {
@@ -226,7 +220,6 @@ $(function(){
 	}
 
 	// CART MANAGEMENT END
-
     $('body').on('click','.job_default',function(e){
     	if (!$(e.target).hasClass('job__more'))
 			$(this).find('.job__more').trigger('click');
@@ -235,6 +228,7 @@ $(function(){
 	$('body').on('click', '.iso__subproducts .table-list__line .table-list__cell[data-name=picture],.iso__subproducts .table-list__line .table-list__cell[data-name=name],.iso__subproducts .table-list__line .table-list__cell[data-name=teaser]', function(e) {
 		$(this).closest('.table-list__line').find('.table-list__action[data-modal]').trigger('click')
 	});
+
 });
 
 var resetCartPosition = function(){
@@ -242,4 +236,3 @@ var resetCartPosition = function(){
 		'top' : $('.headerFW').outerHeight(),
 	})
 }
-
