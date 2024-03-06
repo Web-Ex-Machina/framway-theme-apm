@@ -15,6 +15,21 @@ h5,.h5{font-size: 1em; font-weight:700;}
   &:after{content:""; display: block;border-radius: 1px;height: 5px;width: 35px; background: $primary; margin: 6px 0 0;}
   &.shop:after, .shop &:after{background: color(aliases(shop));}
 }
+
+// inputs
+.input-group{
+  %input{border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: 0; margin: 0;
+    +%btn{border-top-left-radius: 0; border-bottom-left-radius: 0; margin: 0;  padding-right: 0.85em;
+      &.btn-bd-input{
+        --btn-border-color: #{input(border-color)};
+        --btn-background:   #{input(background)};
+        --btn-font-color:   #{input(border-color)};
+     }
+    }
+    &:focus+%btn.btn-bd-input{
+      --btn-border-color: #{input-focus(border-color)};
+      --btn-background:   #{input-focus(background)};
+      --btn-font-color:   #{input-focus(border-color)};
     }
   }
 }
