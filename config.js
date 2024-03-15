@@ -13,6 +13,10 @@ module.exports = {
 	'input': {
 		'radius': '30px',
 		'border-size':'1px',
+		'border-color': 'colors(grey)',
+	},
+	'input-focus': {
+		'border-color': 'colors(greystrong)',
 	},
 	'footer': {
 		'font-size': '12px',
