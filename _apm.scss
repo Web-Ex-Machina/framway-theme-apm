@@ -12,9 +12,11 @@ h4,.h4{font-size: 1em; font-weight: 800;}
 h5,.h5{font-size: 1em; font-weight:700;}
 
 .title--underbar{
-  &:after{content:""; display: block;border-radius: 1px;height: 5px;width: 35px; background: $primary; margin: 6px 0 0;}
-  &.shop:after, .shop &:after{background: color(aliases(shop));}
+  &:after{content:""; display: block;border-radius: 1px;height: 5px;width: 35px; background: var(--primary,#{$primary}); margin: 6px 0 0;}
+  // &.shop:after, .shop &:after{background: color(aliases(shop));}
 }
+
+.mod_article{padding: $spacing*1.5 0; }
 
 // inputs
 .input-group{
@@ -34,6 +36,27 @@ h5,.h5{font-size: 1em; font-weight:700;}
   }
 }
 %input{padding: .25em .75em;}
+
+body{
+  .select2-container--default.select2-container--open.select2-container--above .select2-selection--multiple,
+  .select2-container--default.select2-container--open.select2-container--above .select2-selection--single {
+      border-top-left-radius: input(radius);
+      border-top-right-radius: input(radius);
+  }
+
+  .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple,
+  .select2-container--default.select2-container--open.select2-container--below .select2-selection--single {
+       border-bottom-left-radius: input(radius); 
+       border-bottom-right-radius: input(radius); 
+  }
+}
+
+.input-number__input[type="number"],
+.input-number__input[type="text"]{padding-left: 2rem; padding-right: 2rem; text-align: center;}
+.input-number__buttonsContainer{pointer-events: none; inset: 0; justify-content: space-between; align-items: center; flex-direction: row;}
+.input-number__btn{width: 2rem; pointer-events: all; flex-grow: 0; line-height: 1 !important; height: 100%; display: flex; justify-content: center;align-items: center;
+  &.plus{order: 1;}
+}
 
 .ce_grid-start.min150{--griditem-minwidth: 150px;}
 
@@ -98,19 +121,31 @@ h5,.h5{font-size: 1em; font-weight:700;}
 
 .mod_iso_cart{
   .table-list__container{
-    figure{margin: 0; background: color(greylighter);
+    figure{margin: 0; background: color(white);
       img{width: 100%; height: 120px; object-fit: contain;}
     }
+    td.col_last{padding-top: 3.25em;}
+    td.actions{position: absolute; top: 1em; right: 1em; z-index: 1; text-align: right; padding: 0;
+      a{padding: 0;font-size: 1.25em; line-height: 1;}
+      a.remove{color: rgba($error,0.5);}
+    }
   }
-  tr.product{@extend .table-list__line !optional;}
+  .mode--block{
+    .table-list__container{
+      td.image{display: none;}
+      td.col_last{padding-top: 0;}
+    }
+  }
+  tr.product{@extend .table-list__line !optional; position: relative;}
   .table-list__cell{vertical-align: middle;padding: 1em;
     &:is(td.image){padding: 0; width: 120px;}
     &:is(td.price){text-align: center;}
+    @include media-max(lg){max-width: none;}
   }
-  .input-number__container{margin: 0; max-width: 100px;}
+  .input-number__container{margin: 0; max-width: 80px;}
+  .input-number__btn{width: 1.75rem;}
+  .input-number__input[type=number], .input-number__input[type=text]{padding-left: 1.75rem;padding-right: 1.75rem;}
   .submit_container.d-grid{gap: 0.5rem;}
-  .actions a{padding: 1rem;font-size: 1.35em;}
-  .actions a.remove{color: rgba($error,0.5);}
 
   .cart__wrapper{display: flex;flex-wrap: wrap; gap: 2em; max-width: 1600px;}
   .cart__col{
@@ -121,6 +156,14 @@ h5,.h5{font-size: 1em; font-weight:700;}
     min-width: 450px;
     @include media-max(sm){min-width: 300px;}
     @include media-max(xs){min-width: 100%;}
+  }
+
+  .d-grid{
+    .product{@include paper();  padding: 0.75em 1.25em; display: flex; gap: 1em;
+      figure{margin: 0; background: color(white);
+        img{width: 100%; height: 120px; object-fit: contain;}
+      }
+    }
   }
 }
 
@@ -146,8 +189,14 @@ h5,.h5{font-size: 1em; font-weight:700;}
   }
 }
 
+body.cols--2{
+  #main,aside{
+    >.inside>[class*=mod_iso_]{@extend .mod_article !optional;}
+  }
+}
+
 // OFFERS
-.offer{cursor: pointer;}
+.mod_offerslist .offer{cursor: pointer;}
 
 
 // STORE
@@ -160,11 +209,22 @@ h5,.h5{font-size: 1em; font-weight:700;}
   .block-card__title{font-weight: bold; @include multi-ellipsis($line-height: 1.4, $lines-to-show: 2); margin-bottom: 0.5em;}
   .price{font-weight: bold;}
   .block-card__footer{justify-content: center; opacity: 1;}
+  .NF{width: 35px; position: absolute; top: 0.5em; right: 0.5em;z-index: 1; pointer-events: none;}
 }
 
 // EXTRANET
 .mod_login,
 .mod_registration,
-.mod_lostPasswordNotificationCenter{@extend %block-std !optional; width: fit-content; margin-left: auto; margin-right: auto;
+.mod_lostPasswordNotificationCenter{@extend %block-std !optional; width: fit-content;
+  .login__submitwrapper,
   .widget-submit{text-align: center;}
 }
+
+.mod_personalData{
+  fieldset{display: grid; grid-template-columns: 1fr 1fr; column-gap: 2em; margin-bottom: 2em;
+    .widget-password,
+    legend{grid-column: 1/-1;}
+  }
+}
+
+.password-checker .input-group input+button{transform: none; top: auto; right: auto; position: relative !important; opacity: 1; }
