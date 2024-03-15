@@ -121,8 +121,10 @@ $(function(){
             else {
             	if(confirm('Voulez vous supprimer cet élément de votre panier ?') == true)
                 	$(input).closest('tr.product').find('.remove').trigger('click');
-                else
+                else{
+            		$(input).closest('tr.product').removeClass('loading');
                 	input.value=1;
+                }
             }
         },500)
     });
