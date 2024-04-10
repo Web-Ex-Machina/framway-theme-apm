@@ -9,6 +9,7 @@ module.exports = {
 		'padding-y': '0.5em',
 		'padding-x': '1.5em',
 		'uppercase': 'false',
+		'font-weight': '400',
 	},
 	'input': {
 		'radius': '30px',
