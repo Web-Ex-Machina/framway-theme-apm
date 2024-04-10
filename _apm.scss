@@ -54,6 +54,14 @@ body.cols--2{
 }
 %input{padding: .25em .75em;}
 
+input[type="checkbox"].toggler{
+  &+label{display: flex; align-items: center; gap:1em; padding: 0;
+    &:before{height: 1.75em; width: 3.5em; margin: 0; margin-left: auto; order: 1; border-radius: 50px; background: color(greylighter); border-color: color(greystrong); position: relative;}
+    &:after {opacity: 1; border: 1px solid color(greystrong); background: color(grey); transform: none; height: 1.75em; width: 1.75em; margin: 0; position: absolute; right: calc(3.5em - 1.75em); top: auto; left: auto; z-index: 1; border-radius: 50px; transition: all 0.4s;}
+  }
+  &:checked+label:after{right: 0; background: var(--primary); border-color: var(--primary);}
+}
+
 body{
   .select2-container--default.select2-container--open.select2-container--above .select2-selection--multiple,
   .select2-container--default.select2-container--open.select2-container--above .select2-selection--single {
