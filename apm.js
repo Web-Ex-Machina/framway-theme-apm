@@ -53,7 +53,8 @@ $(function(){
 		    	try{data = $.parseJSON(data); } catch(e){throw e;}
 		    if (data.status == "success"){
 		        notif_fade.success(data.msg);
-		       	app.refreshCart($('.mod_iso_cart').first());
+		       	// app.refreshCart($('.mod_iso_cart').first());
+		       	app.refreshCarts();
 		    }
 		    else {
 		        throw data.msg
@@ -115,7 +116,8 @@ $(function(){
 					});
 				}).then(function(){
 					console.log('success update');
-                	app.refreshCart($(input).closest('.mod_iso_cart'));
+                	// app.refreshCart($(input).closest('.mod_iso_cart'));
+                	app.refreshCarts();
 				});
             }
             else {
@@ -146,12 +148,14 @@ $(function(){
             data: data,
             statusCode: {
                 303: function() {
-                   app.removeCartLine(btn.closest('tr.product'));
+                	app.refreshCarts();
+                   // app.removeCartLine(btn.closest('tr.product'));
                 }
             }
         })
         .done(function( data ){
-            app.removeCartLine(btn.closest('tr.product'));
+        	app.refreshCarts();
+            // app.removeCartLine(btn.closest('tr.product'));
         }).fail(function(jqXHR, textStatus){
         	if (jqXHR.status != 303) {
 	        	console.log(jqXHR, textStatus);
@@ -161,63 +165,98 @@ $(function(){
 	});
 
 
-	app.removeCartLine = function(line){
-		$(line).fadeOut(400, function() {
-          	var cart = $(this).closest('.mod_iso_cart');
-          	$(this).remove();
-          	if (!cart.find('tr.product').length)
-          		window.location.reload();
-          	else
-          		app.syncCartsProducts(cart);
-        });
-	}
+	// app.removeCartLine = function(line){
+	// 	$(line).fadeOut(400, function() {
+    //       	var cart = $(this).closest('.mod_iso_cart');
+    //       	$(this).remove();
+    //       	if (!cart.find('tr.product').length)
+    //       		window.location.reload();
+    //       	else
+    //       		app.syncCartsProducts(cart);
+    //     });
+	// }
 
-	app.syncCartsProducts = function(cart){
-  		var lines = $(cart).find('tr.product');
-    	// Refresh cart header button
-  		if ($('.headerFW__postnav .cart').length)
-  			$('.headerFW__postnav .cart .nb_items').html(lines.length);
-    	// Refresh other cart if needed
-    	if ($('.mod_iso_cart').length > 1) {
-    		$('.mod_iso_cart').not(cart).each(function(){
-    			$(this).find('table tr.product').remove();
-    			var linesClone = lines.clone()
-    			linesClone.find('.input-number__container').each(function(){
-    				$(this).replaceWith($(this).find('input[type=number]'))
-    			})
-    			$(this).find('table').html(linesClone);
-    		})	
-    	}
-	}
+	// app.syncCartsProducts = function(cart){
+  	// 	var lines = $(cart).find('tr.product');
+    // 	// Refresh cart header button
+  	// 	if ($('.headerFW__postnav .cart').length)
+  	// 		$('.headerFW__postnav .cart .nb_items').html(lines.length);
+    // 	// Refresh other cart if needed
+    // 	if ($('.mod_iso_cart').length > 1) {
+    // 		$('.mod_iso_cart').not(cart).each(function(){
+    // 			$(this).find('table tr.product').remove();
+    // 			var linesClone = lines.clone()
+    // 			linesClone.find('.input-number__container').each(function(){
+    // 				$(this).replaceWith($(this).find('input[type=number]'))
+    // 			})
+    // 			$(this).find('table').html(linesClone);
+    // 		})	
+    // 	}
+	// }
 
-	app.refreshCart = function(cart){
-		var cart = $(cart);
-		var data = {
-			action : 'wemReloadModule',
-			module : cart.data('moduleid'),
-			REQUEST_TOKEN : cart.find('input[name=REQUEST_TOKEN]').val(),
-			TL_AJAX: 1,
-		};
-		console.log(data);
-		$.ajax({
-		    timeout: 10000,
-		    url: window.location.pathname,
-		    method: 'post',
-		    data: data,
-		}).done(function(data){
-		    if (typeof data !== 'object')
-		        try{ data = $.parseJSON(data); } catch(e){throw e;}
-		    // console.log(data);
-		    if (data.status == "success"){
-		        cart = cart.wrapAll('<div></div>').parent().html(data.html).children().unwrap();
-		        app.syncCartsProducts(cart);
-		    }
-		    else {
-		        throw data.msg
-		    }
-		}).fail(function(jqXHR, textStatus){
-		    // reject();
-			console.log(jqXHR, textStatus);
+	// app.refreshCart = function(cart){
+	// 	var cart = $(cart);
+	// 	var data = {
+	// 		action : 'wemReloadModule',
+	// 		module : cart.data('moduleid'),
+	// 		REQUEST_TOKEN : cart.find('input[name=REQUEST_TOKEN]').val(),
+	// 		TL_AJAX: 1,
+	// 	};
+	// 	console.log(data);
+	// 	$.ajax({
+	// 	    timeout: 10000,
+	// 	    url: window.location.pathname,
+	// 	    method: 'post',
+	// 	    data: data,
+	// 	}).done(function(data){
+	// 	    if (typeof data !== 'object')
+	// 	        try{ data = $.parseJSON(data); } catch(e){throw e;}
+	// 	    // console.log(data);
+	// 	    if (data.status == "success"){
+	// 	        cart = cart.wrapAll('<div></div>').parent().html(data.html).children().unwrap();
+	// 	        app.syncCartsProducts(cart);
+	// 	    }
+	// 	    else {
+	// 	        throw data.msg
+	// 	    }
+	// 	}).fail(function(jqXHR, textStatus){
+	// 	    // reject();
+	// 		console.log(jqXHR, textStatus);
+	// 	});
+	// }
+
+
+	app.refreshCarts = function(){
+		return new Promise(function(resolve,reject){
+		    $('.mod_iso_cart').each(function(c,cart){
+		    	cart= $(cart);
+		    	console.log(cart);
+		    	var data = {
+		    		action : 'wemReloadModule',
+		    		module : cart.data('moduleid'),
+		    		REQUEST_TOKEN : cart.find('input[name=REQUEST_TOKEN]').val(),
+		    		TL_AJAX: 1,
+		    	};
+		    	$.ajax({
+		    	    timeout: 10000,
+		    	    url: window.location.pathname,
+		    	    method: 'post',
+		    	    data: data,
+		    	}).done(function(data){
+		    	    if (typeof data !== 'object')
+		    	        try{ data = $.parseJSON(data); } catch(e){throw e;}
+		    	    console.log(data);
+		    	    if (data.status == "success"){
+		    	        cart = cart.wrapAll('<div></div>').parent().html(data.html).children().unwrap();
+		    	    }
+		    	    else {
+		    	        throw data.msg
+		    	    }
+		    	}).fail(function(jqXHR, textStatus){
+		    	    // reject();
+		    		console.log(jqXHR, textStatus);
+		    	});
+		    })
 		});
 	}
 
