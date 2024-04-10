@@ -18,6 +18,23 @@ h5,.h5{font-size: 1em; font-weight:700;}
 
 .mod_article{padding: $spacing*1.5 0; }
 
+.wrapper--2_1{display: flex; gap: $spacing; flex-wrap: wrap; 
+  // align-items: flex-start;
+  @include media-max(sm){}
+  @include media-max(xs){column-gap: $spacing/2;}
+  .main{flex-basis: 60%; flex-grow: 1;}
+  .side{flex-basis: 30%; flex-grow: 1; min-width: 250px; position: relative; font-size: 0.88em;  
+    @include media-max(sm){flex-basis: 100%; min-width: 0; }
+  }
+}
+
+
+body.cols--2{
+  #main,aside{
+    >.inside>[class*=mod_iso_]{@extend .mod_article !optional;}
+  }
+}
+
 // inputs
 .input-group{
   %input{border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: 0; margin: 0;
