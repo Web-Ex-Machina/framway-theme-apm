@@ -27,7 +27,7 @@ $(function(){
 	// });
 
 	// add purchase / leasing
-	$('body').on('submit', '.mod_iso_productreader form', function(e) {
+	$('body').on('submit', '.mod_iso_productreader form,.product_list_apm form', function(e) {
 		e.preventDefault();
 		var url = window.location.pathname;
 		if ($(this).closest('.modalFW').length && $(this).closest('.modalFW').modalFW('get').url)
