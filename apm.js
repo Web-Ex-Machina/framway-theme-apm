@@ -65,7 +65,7 @@ $(function(){
 		    // reject();
 		});
 	});
-	$('body').on('click', '.mod_iso_productreader input[type=submit]', function(e) {
+	$('body').on('click', '.mod_iso_productreader input[type=submit], .product_list_apm  input[type=submit]', function(e) {
 		$(this).closest('form').find('input[type=submit]').removeClass('clicked');
 		$(this).addClass('clicked');
 	});
