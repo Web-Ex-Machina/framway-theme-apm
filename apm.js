@@ -29,13 +29,15 @@ $(function(){
 	// add purchase / leasing
 	$('body').on('submit', '.mod_iso_productreader form,.product_list_apm form', function(e) {
 		e.preventDefault();
+		var $form = $(this);
 		var url = window.location.pathname;
-		if ($(this).closest('.modalFW').length && $(this).closest('.modalFW').modalFW('get').url)
-			url = $(this).closest('.modalFW').modalFW('get').url;
+		$form.addClass('loading');
+		if ($form.closest('.modalFW').length && $form.closest('.modalFW').modalFW('get').url)
+			url = $form.closest('.modalFW').modalFW('get').url;
 		var form = {};
 		for (const [key, value] of new FormData(this)) 
 			form[key] = value;
-		form[$(this).find('input[type=submit].clicked').first().attr('name')] = 1;
+		form[$form.find('input[type=submit].clicked').first().attr('name')] = 1;
 		form.TL_AJAX = 1;
 		console.log(form);
 		$.ajax({
@@ -54,19 +56,25 @@ $(function(){
 		    if (data.status == "success"){
 		        notif_fade.success(data.msg);
 		       	// app.refreshCart($('.mod_iso_cart').first());
-		       	app.refreshCarts();
+		       	app.refreshCarts().then(function(){
+					$form.removeClass('loading');
+			       	if ($('.sidepanel[data-name=panel--cart]').length)
+		       			$('.sidepanel[data-name=panel--cart]').addClass('active')
+		       	});
 		    }
 		    else {
+				$form.removeClass('loading');
 		        throw data.msg
 		    }
 		}).fail(function(jqXHR, textStatus){
+			$form.removeClass('loading');
 			console.log('error');
 			console.log(jqXHR, textStatus);
 		    // reject();
 		});
 	});
-	$('body').on('click', '.mod_iso_productreader input[type=submit], .product_list_apm  input[type=submit]', function(e) {
-		$(this).closest('form').find('input[type=submit]').removeClass('clicked');
+	$('body').on('click', '.mod_iso_productreader [type=submit], .product_list_apm  [type=submit]', function(e) {
+		$(this).closest('form').find('[type=submit]').removeClass('clicked');
 		$(this).addClass('clicked');
 	});
 	
@@ -252,8 +260,9 @@ $(function(){
 		    	    else {
 		    	        throw data.msg
 		    	    }
+		    	    resolve()
 		    	}).fail(function(jqXHR, textStatus){
-		    	    // reject();
+		    	    reject();
 		    		console.log(jqXHR, textStatus);
 		    	});
 		    })
