@@ -52,7 +52,9 @@ body.cols--2{
     }
   }
 }
-%input{padding: .25em .75em;}
+%input{padding: .25em .75em;
+  &:is(textarea){padding: 0.75em;}
+}
 
 input[type="checkbox"].toggler{
   &+label{display: flex; align-items: center; gap:1em; padding: 0;
@@ -94,7 +96,12 @@ body{
     &:nth-child(1){grid-row: span 2; grid-column: span 2;
       @include media-max(sm){ grid-column: span 1;}
     }
-    &:nth-child(2){}
+    &:nth-child(2){
+      &:is(:last-child){
+        @include media-max(lg){ grid-column: span 2;}
+        @include media-max(sm){ grid-column: span 1;}
+      }
+    }
     &:nth-child(3){}
   }
   .heroFW.height--content{height: 100%;}
@@ -103,6 +110,7 @@ body{
       &:after{margin-top: 1em;}
     }
     .btn{margin-top: 1em;}
+    &:empty{display: none;}
   }
 }
 
@@ -228,7 +236,11 @@ body{
 // ISOTOPE STORE
 body.apm_store{
   .mod_iso_filters{
-    >*+[class*="mod_iso"]{padding-top: 1em; margin-top: 2em; border-top: 1px solid color(greylight);}
+    >*+[class*="mod_iso"]{
+      margin-top: 2em; 
+      // padding-top: 1em; 
+      // border-top: 1px solid color(greylight);
+    }
     h5{font-weight: 300;}
   }
 
@@ -243,7 +255,7 @@ body.apm_store{
       li{display: flex; align-items: center; gap: 0.85em;
         +li{margin-top: 0.45em;}
       }
-      .icon{width: 1.5em; display: block; font-size: 1.5em; text-align: center;}
+      .icon{min-width: 35px; width: 35px; display: block; font-size: 1.5em; text-align: center;}
       span[tooltip]{opacity: 0.6; transition: opacity 0.4s; margin-left: 0.25em;
         &:hover{opacity: 1;}
       }
@@ -295,12 +307,13 @@ body.apm_store{
 
 // EXTRANET
 .mod_login,
-.mod_registration,
 .mod_lostPasswordNotificationCenter{@extend %block-std !optional; width: fit-content;
   .login__submitwrapper,
   .widget-submit{text-align: center;}
 }
 
+.mod_iso_addressbook,
+.mod_registration,
 .mod_personalData{
   fieldset{display: grid; grid-template-columns: 1fr 1fr; column-gap: 2em; margin-bottom: 2em;
     .widget-password,

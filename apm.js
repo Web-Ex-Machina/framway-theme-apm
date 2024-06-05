@@ -20,6 +20,9 @@ $(function(){
 		)
 	}
 
+	if ($('#filters_reset').length && window.location.search.includes('isorc='))
+		$('#filters_reset').removeClass('hidden')
+
 	// CART MANAGEMENT START
 	// $('body').on('submit', '.mod_iso_cart form', function(e) {
 	// 	e.preventDefault();

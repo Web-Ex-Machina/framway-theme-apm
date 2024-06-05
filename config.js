@@ -15,6 +15,7 @@ module.exports = {
 		'radius': '30px',
 		'border-size':'1px',
 		'border-color': 'colors(grey)',
+		'placeholder-font-color': 'colors(greystrong)',
 	},
 	'input-focus': {
 		'border-color': 'colors(greystrong)',
