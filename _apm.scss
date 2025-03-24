@@ -161,7 +161,7 @@ body{
 .table--cart{
   .table-list__container{
     figure{margin: 0; background: color(white);
-      img{width: 100%; height: 120px; object-fit: contain;}
+      img{width: 100%; height: 120px; object-fit: contain; padding: 1em;}
     }
     td.col_last{padding-top: 3.25em;}
     td.actions{position: absolute; top: 1em; right: 1em; z-index: 1; text-align: right; padding: 0;
