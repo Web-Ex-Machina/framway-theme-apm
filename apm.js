@@ -7,6 +7,7 @@ $(function(){
 
 
 	if ($('.addToCart__wrapper').length) {
+		var header = $('.headerFW').first().headerFW('get');
 		var observer = new MutationObserver(function callback(mutationList, observer) {
 				mutationList.forEach(function(mutation) {
 					if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
@@ -42,7 +43,7 @@ $(function(){
 			form[key] = value;
 		form[$form.find('input[type=submit].clicked').first().attr('name')] = 1;
 		form.TL_AJAX = 1;
-		console.log(form);
+		console.log($form,form);
 		$.ajax({
 		    timeout: 10000,
 		    url: url,
@@ -62,7 +63,9 @@ $(function(){
 		       	app.refreshCarts().then(function(){
 					$form.removeClass('loading');
 			       	if ($('.sidepanel[data-name=panel--cart]').length)
-		       			$('.sidepanel[data-name=panel--cart]').addClass('active')
+		       			$('.sidepanel[data-name=panel--cart]').addClass('active');
+		       		if ($form.closest('.modalFW').length)
+		       			$form.closest('.modalFW').find('.modalFW__close').trigger('click')
 		       	});
 		    }
 		    else {
@@ -95,7 +98,7 @@ $(function(){
 						form[key] = value;
 					form['button_update'] = 1;
 					form.TL_AJAX = 1;
-					console.log(form);
+					// console.log(form);
 					$.ajax({
 					    timeout: 10000,
 					    url: window.location.pathname,
@@ -241,7 +244,7 @@ $(function(){
 		return new Promise(function(resolve,reject){
 		    $('.mod_iso_cart').each(function(c,cart){
 		    	cart= $(cart);
-		    	console.log(cart);
+		    	// console.log(cart);
 		    	var data = {
 		    		action : 'wemReloadModule',
 		    		module : cart.data('moduleid'),
@@ -256,7 +259,7 @@ $(function(){
 		    	}).done(function(data){
 		    	    if (typeof data !== 'object')
 		    	        try{ data = $.parseJSON(data); } catch(e){throw e;}
-		    	    console.log(data);
+		    	    // console.log(data);
 		    	    if (data.status == "success"){
 		    	        cart = cart.wrapAll('<div></div>').parent().html(data.html).children().unwrap();
 		    	    }
