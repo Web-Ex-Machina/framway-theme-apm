@@ -126,6 +126,10 @@ body{
 // OFFERS
 .mod_offerslist .offer{cursor: pointer;}
 
+.mod_offersreader{
+  .ce_text table{@extend .table, .table-bordered, .table-sm, .table-striped !optional;}
+}
+
 
 // hero
 .heroFW.hero--apm{ font-size: 1em;
