@@ -168,7 +168,9 @@ body{
       img{width: 100%; height: 120px; object-fit: contain; padding: 1em;}
     }
     td.col_last{padding-top: 3.25em;}
-    td.actions{position: absolute; top: 1em; right: 1em; z-index: 1; text-align: right; padding: 0;
+    td.actions{
+      // position: absolute; top: 1em; right: 1em; z-index: 1; padding: 0;
+      text-align: right; 
       a{padding: 0;font-size: 1.25em; line-height: 1;}
       a.remove{color: rgba($error,0.5);}
     }
