@@ -479,8 +479,8 @@ body.apm_store{
         position: absolute;
         top: 0;
         bottom: 0;
-        left: -50%;
-        right: -50%;
+        left: -50vw;
+        right: -50vw;
         z-index: -1;
       }
       .btn-bg-primary{
@@ -609,6 +609,10 @@ body.apm_store{
       padding-left:calc(var(--acc-toggler-size) + var(--acc-el-gap));
     }
   }
+
+}
+.mod_iso_super_sort_list{
+  &:has(.pagination){margin-bottom: $spacing;}
 }
 
 .block-card[data-preset="apm--media"]{
